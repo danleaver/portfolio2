@@ -33,34 +33,31 @@ const Navbar = (props) => {
         }
       `}
     >
-      
-        <AngleBrackets curPage={curPage}>
-          &lt;
-        </AngleBrackets>
-        <Link to="/">
+      <AngleBrackets curPage={curPage}>
+        &lt;
+      </AngleBrackets>
+      <Link to="/">
+        <div
+          css={css`
+            font-family: "Sulphur Point";
+            font-weight: 700;
+            font-size: 24px;
+            text-align: center;
+            padding: 0.25rem;
+          `}
+        >
+          Danny Leaver
           <div
             css={css`
-              font-family: "Sulphur Point";
-              font-weight: 700;
-              font-size: 24px;
-              text-align: center;
-              padding: 0.25rem;
+              font-weight: 400;
             `}
-          >
-            Danny Leaver
-            <div
-              css={css`
-                font-weight: 400;
-              `}
-            >Web Developer</div>
-          </div>
-        </Link>
-        <AngleBrackets curPage={curPage}>
-          &gt;
-        </AngleBrackets>
-   
+          >Web Developer</div>
+        </div>
+      </Link>
+      <AngleBrackets curPage={curPage}>
+        &gt;
+      </AngleBrackets>
     </div>
-
   )
 
   const navRight = () => (

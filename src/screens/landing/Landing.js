@@ -3,6 +3,7 @@ import { css, jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useRef } from 'react';
 import LandingAbout from './LandingAbout';
+import LandingProjects from './LandingProjects';
 
 const Landing = (props) => {
   const about = useRef(null)
@@ -32,6 +33,7 @@ const Landing = (props) => {
         <div ref={about} css={css`position: absolute; bottom: var(--nav-height); height: 3rem;`} />
       </LandingWrapper>
       <LandingAbout />
+      <LandingProjects />
     </> 
   )
 }
