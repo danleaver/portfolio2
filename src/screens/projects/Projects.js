@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from '@emotion/react';
-const Projects = () => {
+const Projects = (props) => {
+  console.log("proejcts:", props.match)
   return "Projects"
 }
 

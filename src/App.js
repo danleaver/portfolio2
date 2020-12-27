@@ -9,18 +9,15 @@ import Resume from './screens/resume/Resume';
 import NoMatch from './components/NoMatch';
 
 const App = () => (
-  <>
-    <Navbar />
-    <Router>
+  <Router>
+    <Navbar path="/" >
       <Landing path="/" />
       <Projects path="/projects" />
       <ProjectShow path="/projects/:id" />
       <Resume path="/resume" />
       <NoMatch default />
-    </Router>
-  </>
+    </Navbar >
+  </Router>
 )
-
-
 
 export default App;

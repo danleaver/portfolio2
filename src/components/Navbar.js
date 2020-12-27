@@ -2,47 +2,68 @@
 import { css, jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useState } from 'react';
+import { Link, useLocation,} from '@reach/router';
 import HamburgerMenu from 'react-hamburger-menu';
 
-const curPage = "landing"
+const projects = [
+  {name: "Projects", url: "/projects/"},
+  {name: "Resume", url: "/resume/"},
+  {name: "GitHub", url: "https://github.com/danleaver"},
+  {name: "LinkedIn", url: "https://www.linkedin.com/in/dannyleaver/"},
+]
 
-const Navbar = () => {
+const Navbar = (props) => {
 
-  const [ open, setOpen ] = useState(true)
+  // console.log(props)
+  // const curPage = 1
+  const { pathname : curPage }  = useLocation()
+  console.log(curPage)
+
+  const [ open, setOpen ] = useState(false)
   const handleClick = () => {
     setOpen(!open)
   }
 
   const navLeft = () => (
     <div
-    css={css`
-      flex: 1;
-      display: flex;
-      align-items: center;
-    `}
-  >
-    <AngleBrackets>
-      &lt;
-    </AngleBrackets>
-    <div
       css={css`
-        font-family: "Sulphur Point";
-        font-weight: 400;
-        text-align: center;
-        padding: 0.25rem;
+        flex: 2;
+        display: flex;
+        align-items: center;
+        cursor: default;
+
+        @media(min-width: 1024px) {
+          margin-left: 1rem;
+        }
       `}
     >
-      Danny Leaver
-      <div
-        css={css`
-          font-weight: 300;
-        `}
-      >Web Developer</div>
+      
+        <AngleBrackets curPage={curPage}>
+          &lt;
+        </AngleBrackets>
+        <Link to="/">
+          <div
+            css={css`
+              font-family: "Sulphur Point";
+              font-weight: 700;
+              font-size: 24px;
+              text-align: center;
+              padding: 0.25rem;
+            `}
+          >
+            Danny Leaver
+            <div
+              css={css`
+                font-weight: 400;
+              `}
+            >Web Developer</div>
+          </div>
+        </Link>
+        <AngleBrackets curPage={curPage}>
+          &gt;
+        </AngleBrackets>
+   
     </div>
-    <AngleBrackets>
-      &gt;
-    </AngleBrackets>
-  </div>
 
   )
 
@@ -50,23 +71,37 @@ const Navbar = () => {
     <>
       <div
         css={css`
+          
+          
+          font-size: 20px;
           display: none;
+          
           @media(min-width: 768px) {
+            margin-right: 0rem;
+            flex: 2;
             display: flex;
             justify-content: space-between;
           }
+          @media(min-width: 1024px) {
+            margin-right: 2rem;
+            flex: 1.5;
+            max-width: 600px;
+          }
         `}
       >
-        Right
-        <div>
-          MenuItem
-        </div>
-        <div>
-          MenuItem
-        </div>
-        <div>
-          MenuItem
-        </div>
+        {projects.map((item, i) => (
+          i < 2 
+            ?
+              <Link to={item.url}> 
+                <CurrentPage url={item.url} curPage={curPage}>
+                  {item.name}
+                </CurrentPage>
+              </Link>
+            : 
+              <a href={item.url} target="_blank" rel="noopener noreferrer" >
+                {item.name}
+              </a>
+        ))}
       </div>
       <Bgr
         css={css`
@@ -103,7 +138,7 @@ const Navbar = () => {
     <>
       <div
         css={css`
-          height: 3.5rem;
+          height: calc(var(--nav-height) - 3px);
           background: rgba(0, 0, 0, 0.5);
           color: white;
         `}
@@ -127,6 +162,7 @@ const Navbar = () => {
           background: white;
         `}
       />
+      {props.children}
     </>
   )
 }
@@ -134,7 +170,11 @@ const Navbar = () => {
 const AngleBrackets = styled.div`
   font-family: "Montez";
   font-size: 96px;
-  color: ${ curPage === "landing" && "#4AF626"};
+  color: ${props => props.curPage === "/" && "#4AF626"};
+`
+
+const CurrentPage = styled.div`
+  color: ${props => props.curPage === props.url && "#4AF626"};
 `
 
 
@@ -147,6 +187,7 @@ const Dropdown = styled.div`
   transition: 0.5s ease-in;
   width: 0px;
   // border: 5px solid green;
+  overflow-x: hidden;
 
   ${props => props.open &&
     "width: calc(100vw - 8rem); transition: 0.5s ease-in;"

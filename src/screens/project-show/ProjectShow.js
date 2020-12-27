@@ -1,6 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from '@emotion/react';
-const ProjectShow = () => {
+const ProjectShow = (props) => {
+  console.log("PSHOW:", props)
   return "ProjectShow"
 }
 
