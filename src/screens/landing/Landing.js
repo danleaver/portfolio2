@@ -2,60 +2,36 @@
 import { css, jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useRef } from 'react';
+import LandingAbout from './LandingAbout';
+
 const Landing = (props) => {
   const about = useRef(null)
 
   return (
     <>
-    <LandingWrapper>
-      <Hero>
-        <HeroText>
-          I write <span css={css`color: #4AF626`}>code</span> for websites.
-        </HeroText>
-        <HeroSubText>
-          &#123; frontEnd: reactJS, back_end: ruby_on_rails &#125;
-        </HeroSubText>
-        <HeroSubTextMobile>
-          <div>
-           Front End: ReactJS, 
-          </div>
-          <div>
-            Back End: Ruby on Rails
-          </div>
-        </HeroSubTextMobile>
-      </Hero>
-      <DownArrows onClick={() => about.current.scrollIntoView()}>
-        &gt;&gt; 
-      </DownArrows>
-    </LandingWrapper>
-      <div ref={about}>
-        asdf
-      </div>
-      <div>
-        asdf
-      </div>
-      <div>
-        asdf
-      </div>
-      <div>
-        asdf
-      </div>
-      <div>
-        asdf
-      </div>
-      <div>
-        asdf
-      </div>
-      <div>
-        asdf
-      </div>
-      <div>
-        asdf
-      </div>
-      <div>
-        asdf
-      </div>
-
+      <LandingWrapper>
+        <Hero>
+          <HeroText>
+            I write <span css={css`color: #4AF626`}>code</span> for websites.
+          </HeroText>
+          <HeroSubText>
+            &#123; frontEnd: reactJS, back_end: ruby_on_rails &#125;
+          </HeroSubText>
+          <HeroSubTextMobile>
+            <div>
+            Front End: ReactJS
+            </div>
+            <div>
+              Back End: Ruby on Rails
+            </div>
+          </HeroSubTextMobile>
+        </Hero>
+        <DownArrows onClick={() => about.current.scrollIntoView()}>
+          &gt;&gt; 
+        </DownArrows>
+        <div ref={about} css={css`position: absolute; bottom: var(--nav-height); height: 3rem;`} />
+      </LandingWrapper>
+      <LandingAbout />
     </> 
   )
 }
@@ -68,6 +44,7 @@ const DownArrows = styled.div`
   cursor: pointer;
   position: absolute;
   bottom: 1rem;
+  left: calc(50vw - 42px);
 
   @media (max-width: 1025px) {
     font-size: 72px;

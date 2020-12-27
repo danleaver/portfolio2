@@ -131,32 +131,41 @@ const Navbar = (props) => {
 
   return (
     <>
-      <div
+      <div 
         css={css`
-          height: calc(var(--nav-height) - 3px);
-          background: rgba(0, 0, 0, 0.5);
-          color: white;
+          position: fixed; 
+          width: 100%;
+          z-index: 9999;
         `}
       >
         <div
           css={css`
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            height: 100%;
-            padding: 0 1rem;
+            height: calc(var(--nav-height) - 3px);
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
           `}
         >
-          {navLeft()}
-          {navRight()}
+          <div
+            css={css`
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              height: 100%;
+              padding: 0 1rem;
+            `}
+          >
+            {navLeft()}
+            {navRight()}
+          </div>
         </div>
+        <div
+          css={css`
+            height: 3px;
+            background: white;
+          `}
+        />
       </div>
-      <div
-        css={css`
-          height: 3px;
-          background: white;
-        `}
-      />
+      <div css={css`height: var(--nav-height); width: 100%;`} />
       {props.children}
     </>
   )
