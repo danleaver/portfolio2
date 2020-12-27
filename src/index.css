@@ -15,6 +15,7 @@ code {
 
 html {
   --nav-height: 74px;
+  scroll-behavior: smooth;
 }
 
 a:link {

@@ -1,9 +1,12 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from '@emotion/react';
 import styled from '@emotion/styled';
+import { useRef } from 'react';
 const Landing = (props) => {
+  const about = useRef(null)
 
   return (
+    <>
     <LandingWrapper>
       <Hero>
         <HeroText>
@@ -13,7 +16,6 @@ const Landing = (props) => {
           &#123; frontEnd: reactJS, back_end: ruby_on_rails &#125;
         </HeroSubText>
         <HeroSubTextMobile>
-
           <div>
            Front End: ReactJS, 
           </div>
@@ -22,9 +24,59 @@ const Landing = (props) => {
           </div>
         </HeroSubTextMobile>
       </Hero>
-    </LandingWrapper>     
+      <DownArrows onClick={() => about.current.scrollIntoView()}>
+        &gt;&gt; 
+      </DownArrows>
+    </LandingWrapper>
+      <div ref={about}>
+        asdf
+      </div>
+      <div>
+        asdf
+      </div>
+      <div>
+        asdf
+      </div>
+      <div>
+        asdf
+      </div>
+      <div>
+        asdf
+      </div>
+      <div>
+        asdf
+      </div>
+      <div>
+        asdf
+      </div>
+      <div>
+        asdf
+      </div>
+      <div>
+        asdf
+      </div>
+
+    </> 
   )
 }
+
+const DownArrows = styled.div`
+  font-family: "Montez";
+  font-size: 96px;
+  writing-mode: vertical-rl;
+  color: #4AF626;
+  cursor: pointer;
+  position: absolute;
+  bottom: 1rem;
+
+  @media (max-width: 1025px) {
+    font-size: 72px;
+  }
+
+  @media (max-width: 851px) {
+    font-size: 64px;
+  }
+`
 
 const Hero = styled.div`
   display: flex;
@@ -46,7 +98,11 @@ const HeroText = styled.div`
   font-size: 72px;
   text-align: center;
 
-  @media (max-width: 901px) {
+  @media (max-width: 1025px) {
+    font-size: 64px;
+  }
+
+  @media (max-width: 851px) {
     font-size: 48px;
   }
 `
@@ -56,11 +112,15 @@ const HeroSubText = styled.div`
   font-size: 36px;
   text-align: center;
 
-  @media (max-width: 901px) {
+  @media (max-width: 1025px) {
+    font-size: 32px;
+  }
+
+  @media (max-width: 851px) {
     font-size: 24px;
   }
 
-  @media (max-width: 607px) {
+  @media (max-width: 599px) {
     display: none;
   }
 `
@@ -72,13 +132,14 @@ const HeroSubTextMobile = styled.div`
   display: none;
   width: 320px;
   margin-top: 1rem;
-  @media (max-width: 607px) {
+  @media (max-width: 599px) {
     display: block;
   }
 `
 
 const LandingWrapper = styled.div`
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: calc(100vh - var(--nav-height));

@@ -13,11 +13,7 @@ const projects = [
 ]
 
 const Navbar = (props) => {
-
-  // console.log(props)
-  // const curPage = 1
   const { pathname : curPage }  = useLocation()
-  console.log(curPage)
 
   const [ open, setOpen ] = useState(false)
   const handleClick = () => {
@@ -71,8 +67,6 @@ const Navbar = (props) => {
     <>
       <div
         css={css`
-          
-          
           font-size: 20px;
           display: none;
           
@@ -82,6 +76,7 @@ const Navbar = (props) => {
             display: flex;
             justify-content: space-between;
           }
+
           @media(min-width: 1024px) {
             margin-right: 2rem;
             flex: 1.5;
@@ -173,20 +168,24 @@ const AngleBrackets = styled.div`
   color: ${props => props.curPage === "/" && "#4AF626"};
 `
 
+const Bgr = styled.div`
+  @media(min-width: 768px) {
+    display: none;
+  }
+`
+
 const CurrentPage = styled.div`
   color: ${props => props.curPage === props.url && "#4AF626"};
 `
 
-
 const Dropdown = styled.div`
   position: absolute;
   right: 0;
-  top: calc(3.5rem + 3px);
+  top: var(--nav-height);
   background: rgba(136, 136, 136, 0.5);
-  height: calc(100vh - 3.5rem - 3px); 
+  height: calc(100vh - var(--nav-height)); 
   transition: 0.5s ease-in;
   width: 0px;
-  // border: 5px solid green;
   overflow-x: hidden;
 
   ${props => props.open &&
@@ -194,11 +193,4 @@ const Dropdown = styled.div`
   }
 `
 
-const Bgr = styled.div`
-  @media(min-width: 768px) {
-    display: none;
-  }
-`
-
 export default Navbar
-
