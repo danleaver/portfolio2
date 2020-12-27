@@ -4,7 +4,7 @@ import styled from '@emotion/styled';
 import graphica from '../../assets/graphica.png';
 import vibTest from '../../assets/vib-test-results.png';
 import dplNova from '../../assets/dpl-nova.png';
-import { Link } from '@reach/router';
+import { Link, useNavigate } from '@reach/router';
 
 const projects = [
   { link: "/graphica", 
@@ -39,7 +39,9 @@ const projects = [
 ]
 
 const LandingProjects = () => {
+  const navigate = useNavigate();
 
+  
   return (
     <Wrapper>
       <HereAreSome>
@@ -47,12 +49,32 @@ const LandingProjects = () => {
       </HereAreSome>
       { projects.map((p, i) => (
         <ProjectWrapper>
-          <Name>
+          <Name mobile={true}>
             {p.name}
           </Name>
-          <Link to={p.link} >
-            <Image image={p.image} />
-          </Link>
+          <div css={css`
+            @media (min-width: 768px) {
+              display: flex; 
+              justify-content: center;
+            }             
+          `}>
+            <Image onClick={() => navigate('/graphica')} image={p.image} />
+            <div css={css`
+              display: none;
+              @media (min-width: 768px) {
+                display: block;
+                width: 50%;
+              }              
+            `}>
+              <Name>
+                {p.name}
+              </Name>
+              <StyledP links={true}>
+                <a href={p.url} target="_blank" rel="noreferrer">Live Site</a>
+                <a href={p.github} target="_blank" rel="noreferrer">Github</a>
+              </StyledP>
+            </div>
+          </div>
           <Description>
             <StyledP links={true}>
               <a href={p.url} target="_blank" rel="noreferrer">Live Site</a>
@@ -89,13 +111,31 @@ const HereAreSome = styled.div`
 const Image = styled.div`
   background: url(${props => props.image}) center no-repeat;
   background-size: cover;
-  height: 54vw;
+  height: calc(64vw - 2rem);
   margin: 0.5rem 0;
+  border: 1px solid green;
+  max-width: 533px;
+  max-height: 341px;
+  flex-shrink: 0;
+  cursor: pointer;
+
+  @media (min-width: 768px) {
+    width: 100%;
+    height: 38vw;
+    max-width: 450px;
+    max-height: 341px;
+  }
 `
 
 const Name = styled.div`
   font-family: "Sulphur Point";
   font-size: 24px;
+
+  ${props => props.mobile && `
+    @media (min-width: 768px) {
+      display: none;
+    }
+  `}
 `
 const ProjectWrapper = styled.div`
   padding: 2rem 0;
@@ -106,13 +146,19 @@ const StyledP = styled.p`
   ${props => props.links && `
     display: flex;
     justify-content: space-between;
+    max-width: 533px;
   `}
 `
 
 const Wrapper = styled.div`
   color: white;
   padding: 1rem;
+  margin: auto;
+  max-width: 533px;
   
+  @media (min-width: 768px) {
+    max-width: none;
+  }
   a:link {
     text-decoration: underline;
   }

@@ -55,7 +55,7 @@ const ImageDiv = styled.div`
   display: flex;
   align-items: center;
   flex-direction: column;
-  max-width: 1440px;
+  max-width: 1024px;
   margin: auto;
 
   @media (min-width: 500px) {
@@ -77,9 +77,10 @@ const LittleBit = styled.div`
     ? 
       `
         float: left; 
-        padding: 0rem 2rem 0 2rem;
+        padding: 0rem 2rem 0 0rem;
         font-size: 36px;
         display: none; 
+        // margin-top: 1rem;
 
         @media (min-width: 1075px) {
           display: block;
