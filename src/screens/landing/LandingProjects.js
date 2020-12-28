@@ -5,6 +5,7 @@ import graphica from '../../assets/graphica.png';
 import vibTest from '../../assets/vib-test-results.png';
 import dplNova from '../../assets/dpl-nova.png';
 import { Link, useNavigate } from '@reach/router';
+import { useEffect, useState } from 'react';
 
 const projects = [
   { link: "/graphica", 
@@ -31,34 +32,82 @@ const projects = [
     name: "DevPoint Labs", 
     github: "", 
     url: "", 
-    description: "A new version of the school's website", 
+    description: "A new version of a web-development coding bootcamp's site", 
     tools: "react-spring, react-reveal, ESLint", 
-    takeHome: "This is a current project, and I'm learning a lot from working with better developers than me. It is great to be on a team that gives me the freedom to come up with my own solutions while providing the support to help me when I'm getting stuck.", 
+    takeHome: "This is a current project, where I'm get to work with more experienced developers than myself. On this team, I am able to have the freedom to come up with my own solutions while having support if I run into a problem and get stuck.", 
     image: dplNova 
   },
 ]
 
 const LandingProjects = () => {
   const navigate = useNavigate();
+  const [ takeHomeLength, setTakeHomeLength ] = useState(80)
+  const [ width, setWidth ] = useState()
+ 
+  useEffect(() => {
+    let w = window.innerWidth
+    
+    if (w < 949) {
+      setTakeHomeLength(100)
+    }
+    setWidth(w)
+    
+  }, [])
 
+  const getWidth = (w) => {
+    let n = window.innerWidth
+
+    if (w < 950 && n > 949) {
+      setTakeHomeLength(160)
+    } else if (w > 949 && n < 950) {
+      setTakeHomeLength(80)
+    }
+    setWidth(n)
+  }
+
+  window.onresize = () => getWidth(width)
+
+  console.log("THIS:", takeHomeLength)
+  const renderDetails = (p, media) => (
+    <Description>
+
+      <Details media={media} links={true}>
+        <a href={p.url} target="_blank" rel="noreferrer">Live Site</a>
+        <a href={p.github} target="_blank" rel="noreferrer">Github</a>
+      </Details>
+      <Details>
+        <Name>
+          {p.name}
+        </Name>
+        {p.description}
+      </Details>
+      <Details>
+        <strong>Tools Used: </strong> 
+        {p.tools}
+      </Details>
+      <Details>
+        <strong> What I learned: </strong> {p.takeHome.substring(0, takeHomeLength)}... <Link to={p.link}>See Full Description</Link>
+      </Details>
+    </Description>
+  )
   
   return (
     <Wrapper>
       <HereAreSome>
         Here are some of my <span css={css`color: #4AF626`}>projects</span>:
       </HereAreSome>
-      { projects.map((p, i) => (
+      { projects.map((p, idx) => (
         <ProjectWrapper>
-          <Name mobile={true}>
+          <Name idx={idx} mobile={true}>
             {p.name}
           </Name>
           <div css={css`
             @media (min-width: 768px) {
               display: flex; 
-              justify-content: center;
+              justify-content: space-between;
             }             
           `}>
-            <Image onClick={() => navigate('/graphica')} image={p.image} />
+            <Image idx={idx} onClick={() => navigate('/graphica')} image={p.image} />
             <div css={css`
               display: none;
               @media (min-width: 768px) {
@@ -66,31 +115,16 @@ const LandingProjects = () => {
                 width: 50%;
               }              
             `}>
-              <Name>
-                {p.name}
-              </Name>
-              <StyledP links={true}>
-                <a href={p.url} target="_blank" rel="noreferrer">Live Site</a>
-                <a href={p.github} target="_blank" rel="noreferrer">Github</a>
-              </StyledP>
+              {renderDetails(p, true)}    
             </div>
           </div>
-          <Description>
-            <StyledP links={true}>
-              <a href={p.url} target="_blank" rel="noreferrer">Live Site</a>
-              <a href={p.github} target="_blank" rel="noreferrer">Github</a>
-            </StyledP>
-            <StyledP>
-              {p.description}
-            </StyledP>
-            <StyledP>
-              <strong>Tools Used: </strong> 
-              {p.tools}
-            </StyledP>
-            <StyledP>
-              <strong> What I learned: </strong> {p.takeHome.substring(0, 100)}... <Link to={p.link}>See Full Description</Link>
-            </StyledP>
-          </Description>
+          <div css={css`
+            @media (min-width: 768px) {
+              display: none;
+            }
+          `}>
+            {renderDetails(p)}    
+          </div>
         </ProjectWrapper>
       ))}
     </Wrapper>
@@ -99,13 +133,43 @@ const LandingProjects = () => {
 
 const Description = styled.div`
   font-size: 14px;
+  display: flex;
+  flex-direction: column;
+
+  @media (min-width: 768px) {
+
+    justify-content: space-between;
+    // align-items: space-between;
+    min-height: 100%;
+    // max-height: 341px;
+    margin: 0 1rem;
+
+    font-size: 16px;
+  }
+`
+
+const Details = styled.div`
+  margin-top: 0;
+  margin-bottom: 16px;
+
+  ${props => props.links && `
+    display: flex;
+    justify-content: space-between;
+    max-width: 533px;
+  `}
+
+  ${props => props.media && `
+    order: 2;
+    margin-bottom: 0;
+  `}
+    
 `
 
 const HereAreSome = styled.div`
   font-family: "Sulphur Point";
   font-size: 28px;
   text-align: center;
-  padding: 1rem 0;
+  padding: 3rem 0 1rem 0;
 `
 
 const Image = styled.div`
@@ -113,7 +177,7 @@ const Image = styled.div`
   background-size: cover;
   height: calc(64vw - 2rem);
   margin: 0.5rem 0;
-  border: 1px solid green;
+  // border: 1px solid green;
   max-width: 533px;
   max-height: 341px;
   flex-shrink: 0;
@@ -121,34 +185,49 @@ const Image = styled.div`
 
   @media (min-width: 768px) {
     width: 100%;
-    height: 38vw;
+    height: 310px;
     max-width: 450px;
     max-height: 341px;
+    margin: 0;
   }
+
+  ${props => props.idx % 2 === 1 && "order: 2;"}
 `
 
 const Name = styled.div`
   font-family: "Sulphur Point";
   font-size: 24px;
 
-  ${props => props.mobile && `
-    @media (min-width: 768px) {
-      display: none;
-    }
-  `}
+  @media (min-width: 768px) {
+    padding-bottom: 0.5rem;
+    font-size: 28px;
+  }
+
+  // ${props => props.idx % 2 === 1 && "text-align: right;"}
+
+  ${props => props.mobile 
+    ? 
+      `
+        @media (min-width: 950px) {
+          display: none;
+        }
+      ` 
+    : 
+      `
+        display: none;
+
+        @media (min-width: 950px) {
+          display: block;
+        }
+      `
+  }
 `
 const ProjectWrapper = styled.div`
   padding: 2rem 0;
+  max-width: 1024px;
+  margin: auto;
 `
-const StyledP = styled.p`
-  margin-top: 0;
 
-  ${props => props.links && `
-    display: flex;
-    justify-content: space-between;
-    max-width: 533px;
-  `}
-`
 
 const Wrapper = styled.div`
   color: white;
@@ -161,6 +240,10 @@ const Wrapper = styled.div`
   }
   a:link {
     text-decoration: underline;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 2rem;
   }
 `
 
