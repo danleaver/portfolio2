@@ -44,7 +44,6 @@ const AboutWrapper = styled.div`
 `
 
 const Image = styled.img`
- 
   @media (min-width: 500px) {
     float: right;
     margin-left: 1rem;
@@ -80,7 +79,6 @@ const LittleBit = styled.div`
         padding: 0rem 2rem 0 0rem;
         font-size: 36px;
         display: none; 
-        // margin-top: 1rem;
 
         @media (min-width: 1075px) {
           display: block;
@@ -96,10 +94,8 @@ const LittleBit = styled.div`
 
 const StyledP = styled.p`
   min-width: calc(320px - 2rem);
-  // max-width: 500px;
   margin-top: 0;
   margin-bottom: 32px;
 `
-
 
 export default LandingAbout

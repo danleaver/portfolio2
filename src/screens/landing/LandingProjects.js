@@ -48,10 +48,10 @@ const LandingProjects = () => {
     let w = window.innerWidth
     
     if (w < 949) {
-      setTakeHomeLength(100)
+      setTakeHomeLength(80)
     }
+
     setWidth(w)
-    
   }, [])
 
   const getWidth = (w) => {
@@ -62,15 +62,14 @@ const LandingProjects = () => {
     } else if (w > 949 && n < 950) {
       setTakeHomeLength(80)
     }
+
     setWidth(n)
   }
 
   window.onresize = () => getWidth(width)
 
-  console.log("THIS:", takeHomeLength)
   const renderDetails = (p, media) => (
     <Description>
-
       <Details media={media} links={true}>
         <a href={p.url} target="_blank" rel="noreferrer">Live Site</a>
         <a href={p.github} target="_blank" rel="noreferrer">Github</a>
@@ -137,13 +136,9 @@ const Description = styled.div`
   flex-direction: column;
 
   @media (min-width: 768px) {
-
     justify-content: space-between;
-    // align-items: space-between;
     min-height: 100%;
-    // max-height: 341px;
     margin: 0 1rem;
-
     font-size: 16px;
   }
 `
@@ -162,7 +157,6 @@ const Details = styled.div`
     order: 2;
     margin-bottom: 0;
   `}
-    
 `
 
 const HereAreSome = styled.div`
@@ -177,7 +171,6 @@ const Image = styled.div`
   background-size: cover;
   height: calc(64vw - 2rem);
   margin: 0.5rem 0;
-  // border: 1px solid green;
   max-width: 533px;
   max-height: 341px;
   flex-shrink: 0;
@@ -203,8 +196,6 @@ const Name = styled.div`
     font-size: 28px;
   }
 
-  // ${props => props.idx % 2 === 1 && "text-align: right;"}
-
   ${props => props.mobile 
     ? 
       `
@@ -222,24 +213,25 @@ const Name = styled.div`
       `
   }
 `
+
 const ProjectWrapper = styled.div`
   padding: 2rem 0;
   max-width: 1024px;
   margin: auto;
 `
 
-
 const Wrapper = styled.div`
   color: white;
   padding: 1rem;
   margin: auto;
   max-width: 533px;
-  
-  @media (min-width: 768px) {
-    max-width: none;
-  }
+
   a:link {
     text-decoration: underline;
+  }
+
+  @media (min-width: 768px) {
+    max-width: none;
   }
 
   @media (min-width: 1024px) {

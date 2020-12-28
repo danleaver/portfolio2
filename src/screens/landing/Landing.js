@@ -122,7 +122,7 @@ const LandingWrapper = styled.div`
   justify-content: center;
   align-items: center;
   height: calc(100vh - var(--nav-height));
-  margin: 0 1rem;
+  margin: 0 1rem 5rem;
 `
 
 export default Landing

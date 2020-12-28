@@ -161,6 +161,17 @@ const Navbar = (props) => {
             background: white;
           `}
         />
+        {/* <div 
+          css={css`
+            position: relative;
+            top: 200px;
+            left: 0;
+            color: white;
+            text-align: right;
+          `}
+        >
+          CONTACT ME dleaver@gmail.com&nbsp;
+        </div> */}
       </div>
       <div css={css`height: var(--nav-height); width: 100%;`} />
       {props.children}
