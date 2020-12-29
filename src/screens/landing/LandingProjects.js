@@ -1,49 +1,18 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from '@emotion/react';
 import styled from '@emotion/styled';
-import graphica from '../../assets/graphica.png';
-import vibTest from '../../assets/vib-test-results.png';
-import dplNova from '../../assets/dpl-nova.png';
+
 import { Link, useNavigate } from '@reach/router';
 import { useEffect, useState } from 'react';
+import { projects as projectList } from "../projects/projectsData"
 
-const projects = [
-  { link: "/graphica", 
-    name: "Graphica", 
-    github: "https://github.com/danleaver/graphica", 
-    url: "http://discover-graphica.herokuapp.com", 
-    description: "Photo sharing, social media website for photography enthusiasts", 
-    tools: "React, Ruby on Rails, PostgreSQL, Heroku", 
-    takeHome: "This was the capstone group project from a course I took on full-stack development through the University of Utah. I learned importance of daily stand-ups, and how to successfully merge group code. We had to get an MVP made before a deadline, and so we had to decide on which features to build and which ones to drop. Working in a group and being responsible for a particular part of the website helped me better understand how to share responsibility and divide up tasks.", 
-    image: graphica 
-  },
-  { 
-    link: "/vib-test",
-    name: "Vib-Test Results", 
-    github: "https://github.com/danleaver/vib-test", 
-    url: "https://vibtest.tk", 
-    description: "Remote access to live test results for automobile vibration-test", 
-    tools: "React, LAMP Stack, SocketIO, Shell Scripts, Auth0", 
-    takeHome: "I was tasked to make a proof-of-concept demo for a customer, and there was a limited amount of time until the demo. I used the tools I had under my belt to quickly whip up a working product to show the customer.", 
-    image: vibTest 
-  },
-  { 
-    link: "/dpl-nova", 
-    name: "DevPoint Labs", 
-    github: "", 
-    url: "", 
-    description: "A new version of a web-development coding bootcamp's site", 
-    tools: "react-spring, react-reveal, ESLint", 
-    takeHome: "This is a current project, where I'm get to work with more experienced developers than myself. On this team, I am able to have the freedom to come up with my own solutions while having support if I run into a problem and get stuck.", 
-    image: dplNova 
-  },
-]
 
 const LandingProjects = () => {
   const navigate = useNavigate();
-  const [ takeHomeLength, setTakeHomeLength ] = useState(80)
+  const [ takeHomeLength, setTakeHomeLength ] = useState(160)
   const [ width, setWidth ] = useState()
- 
+  const projects = projectList.slice(0,3)
+
   useEffect(() => {
     let w = window.innerWidth
     
@@ -68,6 +37,10 @@ const LandingProjects = () => {
 
   window.onresize = () => getWidth(width)
 
+  const navigateTo = (link) => {
+    navigate(`/projects/${link}`)
+  }
+
   const renderDetails = (p, media) => (
     <Description>
       <Details media={media} links={true}>
@@ -76,7 +49,9 @@ const LandingProjects = () => {
       </Details>
       <Details>
         <Name>
-          {p.name}
+          <Link to={`/projects/${p.link}`}>
+            {p.name}
+          </Link>
         </Name>
         {p.description}
       </Details>
@@ -85,7 +60,7 @@ const LandingProjects = () => {
         {p.tools}
       </Details>
       <Details>
-        <strong> What I learned: </strong> {p.takeHome.substring(0, takeHomeLength)}... <Link to={p.link}>See Full Description</Link>
+        <strong> What I learned: </strong> {p.takeHome.substring(0, takeHomeLength)}... <Link to={`/projects/${p.link}`}>See Full Description</Link>
       </Details>
     </Description>
   )
@@ -97,7 +72,11 @@ const LandingProjects = () => {
       </HereAreSome>
       { projects.map((p, idx) => (
         <ProjectWrapper>
-          <Name idx={idx} mobile={true}>
+          <Name 
+            idx={idx} 
+            mobile={true}
+            onClick={() => navigateTo(p.link)}
+          >
             {p.name}
           </Name>
           <div css={css`
@@ -105,8 +84,11 @@ const LandingProjects = () => {
               display: flex; 
               justify-content: space-between;
             }             
+            @media (min-width: 1440px) {
+              justify-content: space-around;
+            }
           `}>
-            <Image idx={idx} onClick={() => navigate('/graphica')} image={p.image} />
+            <Image idx={idx} onClick={() => navigateTo(p.link)} image={p.image} />
             <div css={css`
               display: none;
               @media (min-width: 768px) {
@@ -215,9 +197,15 @@ const Name = styled.div`
 `
 
 const ProjectWrapper = styled.div`
-  padding: 2rem 0;
+  padding: 2rem 0 5rem;
   max-width: 1024px;
   margin: auto;
+
+  @media( min-width: 1440px ){
+    max-width: 1200px;
+  }
+
+
 `
 
 const Wrapper = styled.div`

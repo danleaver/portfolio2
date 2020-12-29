@@ -1,9 +1,10 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useState } from 'react';
-import { Link, useLocation,} from '@reach/router';
+import { useState, useEffect } from 'react';
+import { Link, useLocation} from '@reach/router';
 import HamburgerMenu from 'react-hamburger-menu';
+import { projects as projectsData } from '../screens/projects/projectsData'
 
 const projects = [
   {name: "Projects", url: "/projects/"},
@@ -14,11 +15,21 @@ const projects = [
 
 const Navbar = (props) => {
   const { pathname : curPage }  = useLocation()
-
+  const [ project, setProject ] = useState(null)
+  console.log(curPage.substring(10))
   const [ open, setOpen ] = useState(false)
   const handleClick = () => {
     setOpen(!open)
   }
+
+  useEffect(() => {
+    setProject(null)
+    projectsData.forEach(p => {
+      if (p.link === curPage.substring(10)){
+        setProject(p.name)
+      } 
+    })
+  }, [curPage])
 
   const navLeft = () => (
     <div
@@ -76,7 +87,7 @@ const Navbar = (props) => {
 
           @media(min-width: 1024px) {
             margin-right: 2rem;
-            flex: 1.5;
+            flex: 5;
             max-width: 600px;
           }
         `}
@@ -84,11 +95,16 @@ const Navbar = (props) => {
         {projects.map((item, i) => (
           i < 2 
             ?
-              <Link to={item.url}> 
-                <CurrentPage url={item.url} curPage={curPage}>
-                  {item.name}
-                </CurrentPage>
-              </Link>
+              <div>
+                <Link to={item.url}> 
+                  <CurrentPage url={item.url} curPage={curPage}>
+                    {item.name}
+                  </CurrentPage>
+                </Link>
+                <PName>
+                  {i === 0 && project ? `/${project}` : null}
+                </PName>
+              </div>
             : 
               <a href={item.url} target="_blank" rel="noopener noreferrer" >
                 {item.name}
@@ -191,7 +207,7 @@ const Bgr = styled.div`
   }
 `
 
-const CurrentPage = styled.div`
+const CurrentPage = styled.span`
   color: ${props => props.curPage === props.url && "#4AF626"};
 `
 
@@ -210,4 +226,13 @@ const Dropdown = styled.div`
   }
 `
 
+const PName = styled.span`
+  display: none;
+  color: #4AF626;
+
+  @media (min-width: 1024px){
+    display: inline-block;
+  }
+
+`
 export default Navbar
