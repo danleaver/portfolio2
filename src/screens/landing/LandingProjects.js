@@ -75,9 +75,10 @@ const LandingProjects = () => {
           <Name 
             idx={idx} 
             mobile={true}
-            onClick={() => navigateTo(p.link)}
           >
-            {p.name}
+            <Link to={`/projects/${p.link}`}>
+              {p.name}
+            </Link>
           </Name>
           <div css={css`
             @media (min-width: 768px) {

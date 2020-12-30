@@ -5,19 +5,14 @@ import { useState, useEffect } from 'react';
 import { Link, useLocation} from '@reach/router';
 import HamburgerMenu from 'react-hamburger-menu';
 import { projects as projectsData } from '../screens/projects/projectsData'
+import { links } from './links'
 
-const projects = [
-  {name: "Projects", url: "/projects/"},
-  {name: "Resume", url: "/resume/"},
-  {name: "GitHub", url: "https://github.com/danleaver"},
-  {name: "LinkedIn", url: "https://www.linkedin.com/in/dannyleaver/"},
-]
 
 const Navbar = (props) => {
   const { pathname : curPage }  = useLocation()
   const [ project, setProject ] = useState(null)
-  console.log(curPage.substring(10))
   const [ open, setOpen ] = useState(false)
+
   const handleClick = () => {
     setOpen(!open)
   }
@@ -47,7 +42,10 @@ const Navbar = (props) => {
       <AngleBrackets curPage={curPage}>
         &lt;
       </AngleBrackets>
-      <Link to="/">
+      <Link 
+        onClick={() => setOpen(false)}
+        to="/"
+      >
         <div
           css={css`
             font-family: "Sulphur Point";
@@ -71,6 +69,38 @@ const Navbar = (props) => {
     </div>
   )
 
+  const renderLinks = (viewport) => (
+    links.map((item, i) => (
+      i < 2 
+        ?
+          <div>
+            <Link 
+              to={item.url}
+              onClick={() => setOpen(false)}
+            > 
+              <CurrentPage url={item.url} curPage={curPage}>
+                {item.name}
+              </CurrentPage>
+            </Link>
+            <PName>
+              {i === 0 && project 
+                ?
+                  viewport === "mobile" 
+                  ?
+                    <div> ↳ {project} </div>
+                  : `/${project}` 
+                : null}
+            </PName>
+          </div>
+        : 
+          <div>
+            <a href={item.url} target="_blank" rel="noopener noreferrer" >
+              {item.name}
+            </a>
+          </div>
+    ))
+  )
+
   const navRight = () => (
     <>
       <div
@@ -92,24 +122,7 @@ const Navbar = (props) => {
           }
         `}
       >
-        {projects.map((item, i) => (
-          i < 2 
-            ?
-              <div>
-                <Link to={item.url}> 
-                  <CurrentPage url={item.url} curPage={curPage}>
-                    {item.name}
-                  </CurrentPage>
-                </Link>
-                <PName>
-                  {i === 0 && project ? `/${project}` : null}
-                </PName>
-              </div>
-            : 
-              <a href={item.url} target="_blank" rel="noopener noreferrer" >
-                {item.name}
-              </a>
-        ))}
+        {renderLinks()}
       </div>
       <Bgr
         css={css`
@@ -128,15 +141,9 @@ const Navbar = (props) => {
           animationDuration={0.5}
         />
         <Dropdown open={open}>
-          <div>
-            MenuItem
-          </div>
-          <div>
-            MenuItem
-          </div>
-          <div>
-            MenuItem
-          </div>
+          <DropdownLinks>
+            {renderLinks("mobile")}
+          </DropdownLinks>
         </Dropdown>
       </Bgr>
     </>
@@ -209,7 +216,7 @@ const Bgr = styled.div`
 
 const CurrentPage = styled.span`
   color: ${props => props.curPage === props.url && "#4AF626"};
-`
+`;
 
 const Dropdown = styled.div`
   position: absolute;
@@ -220,16 +227,28 @@ const Dropdown = styled.div`
   transition: 0.5s ease-in;
   width: 0px;
   overflow-x: hidden;
+  font-size: 24px;
 
   ${props => props.open &&
     "width: calc(100vw - 8rem); transition: 0.5s ease-in;"
   }
-`
+`;
+
+const DropdownLinks = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 50vh;
+  padding: 1rem;
+`;
 
 const PName = styled.span`
-  display: none;
+  // display: none;
   color: #4AF626;
 
+  @media (min-width: 768px) {
+    display: none;
+  }
   @media (min-width: 1024px){
     display: inline-block;
   }
