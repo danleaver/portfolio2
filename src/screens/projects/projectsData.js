@@ -17,6 +17,7 @@ export const projects = [
   { 
     link: "vib-test",
     name: "Vib-Test Results", 
+    date: "Aug 2020 - Sept 2020",
     github: "https://github.com/danleaver/vib-test", 
     url: "https://vibtest.tk", 
     description: "Remote access to live test results for automobile vibration-test", 
@@ -37,6 +38,4 @@ export const projects = [
   { link: "mac", name: "Macedonian Arts Council", github: "https://github.com/danleaver/mac-arts", url: "", description: "A modern design overhaul and site update", tools: "Figma, React", takeHome: "I was brought on as a developer, but ended up designing the new project in addition to coding it. I studied other arts council websites, and went over various design ideas with executive director of the organization.", image: mac },
   { link: "off-the-couch", name: "Off-The-Couch", github: "https://github.com/danleaver/off-the-couch", description: "Pet monitoring tool for spying on your pets and talking to them when you're not home", tools: "React, Node/Express, SocketIO" },
   { link: "malouf-coding-test", name: "Malouf Coding Test", github: "https://github.com/danleaver/malouf-test-react", description: "A design that I coded for an interview test that resulted in a job offer.", tools: "React, VanillaJS, CSS" },
-
-
 ]

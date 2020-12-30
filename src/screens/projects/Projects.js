@@ -3,29 +3,31 @@ import { css, jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 import { projects } from '../projects/projectsData';
 import { Link } from '@reach/router';
+import { GreenSpan } from '../../styles/styles';
+import Clearfix from '../../components/Clearfix';
 
 const Projects = (props) => {
   console.log("proejcts:", props.match)
   return (
-    <Wrapper>
-      <Header>
-        Click a <span css={css`color: #4AF626`}>project</span> to learn more about it.
-      </Header>
-      <ProjectsWrapper>
-
-      {projects.map(p => (
-        <Project>
-          <Link to={`/projects/${p.link}`}>
-            <h2>
-              {p.name}
-            </h2>
-            <img height="150px" alt={p.name} src={p.image}></img>
-          </Link>
-        </Project>
-      ))}
-      </ProjectsWrapper>
-    </Wrapper>
-    
+    <Clearfix>
+      <Wrapper>
+        <Header>
+          Click a <GreenSpan>project</GreenSpan> to learn more about it.
+        </Header>
+        <ProjectsWrapper>
+          {projects.map(p => (
+            <Project>
+              <Link to={`/projects/${p.link}`}>
+                <h2>
+                  {p.name}
+                </h2>
+                <img height="150px" alt={p.name} src={p.image}></img>
+              </Link>
+            </Project>
+          ))}
+        </ProjectsWrapper>
+      </Wrapper>
+    </Clearfix>
   )
 };
 
@@ -48,6 +50,10 @@ const ProjectsWrapper = styled.div`
 const Wrapper = styled.div`
   padding: 3rem 0rem;
   text-align: center;
+
+  a:link {
+    text-decoration: none;
+   }
 `;
 
 export default Projects;

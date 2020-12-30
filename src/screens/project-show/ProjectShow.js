@@ -2,52 +2,179 @@
 import { css, jsx } from '@emotion/react';
 import styled from '@emotion/styled';
 import { useEffect, useState } from 'react';
-import { projects } from '../projects/projectsData'
+import { projects } from '../projects/projectsData';
+import { Link } from '@reach/router';
+import { GreenSpan } from '../../styles/styles';
+import Clearfix from '../../components/Clearfix';
 
 const ProjectShow = (props) => {
- 
   const [project, setProject] = useState(null)
+  const [nextProject, setNextProject] = useState(null)
 
   useEffect(() => {
-    projects.forEach(p => {
+    projects.forEach((p, i) => {
       if (p.link === props.id) {
         setProject(p)
+        if (i < projects.length - 1) {
+          setNextProject(projects[i + 1])
+        } else {
+          setNextProject(projects[0])
+        }
       }
     })
-  }, [])
+    
+    window.scrollTo(0,0)
+  }, [props.id]);
 
-  if (project == null) return "loading"
+
+  const renderAllProjects = (viewport) => (
+    <AllProjects viewport={viewport}>
+      <Link to="/projects">All Projects</Link>
+      <Link to={`/projects/${nextProject.link}`}> Next Project </Link>
+    </AllProjects>
+  )
+
+  if (project == null) return "loading";
 
   return (
-    <Wrapper>
-      <Name>
-        {project.name}
-      </Name>
-      <SubText>
-        {project.description}
-      </SubText>
-    </Wrapper>
+    <Clearfix>
+      {renderAllProjects("mobile")}
+      <Wrapper>
+        <Name>
+          {project.name}
+        </Name>
+        <SubText>
+          {project.description}
+        </SubText>
+        <div css={css`
+          @media( min-width: 768px) {
+            display: inline-block;
+          }
+        `} >
+          <Image url={project.image} />
+          <Links>
+            <Image float={true} url={project.image} />
+            {project.url && 
+              <Item url={true}>
+                <GreenSpan>
+                  <strong>Live Site:</strong>
+                </GreenSpan> <a href={project.url}> {project.url} </a>
+              </Item>
+            }    
+            {project.github && 
+              <Item url={true}>
+                <strong>Github:</strong> <a href={project.github}> {project.github} </a>
+              </Item>
+            }        
+            <Item>
+              <strong>Date:</strong> {project.date}
+            </Item>
+            <Item>
+              <strong>Tools used:</strong> {project.tools}
+            </Item>
+            <Item>
+              <strong>What I learned:</strong> {project.takeHome}
+            </Item>
+          </Links>
+        </div>
+      </Wrapper>      
+      {renderAllProjects()}
+    </Clearfix>
   )
 
 }
 
+const AllProjects = styled.div`
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+  font-family: "Sulphur Point";
+  font-size: 18px;
+
+  ${props => props.viewport === "mobile" && `
+    @media(min-width: 768px) {
+      display: none;
+    }
+  `}
+
+  @media (min-width: 768px) {
+    font-size: 24px;
+  }
+`;
+
+const Item = styled.div`
+  padding: 1rem 0;
+  word-break: ${props => props.url && "break-all"};
+`;
+
+const Image = styled.div`
+  background: url(${props => props.url}) no-repeat center;
+  background-size: contain;
+  width: 90vw;
+  height: 60vw;
+  // border: 1px solid green;
+
+  ${props => props.float 
+    ? 
+      `
+        display: none;
+        @media(min-width: 768px) {
+          display: block;
+          float: right;
+          width: 50%;
+          height: 34vw;
+          // padding-left: 2rem;
+          // padding-bottom: 2rem;
+        } 
+      `
+    : 
+      `
+        @media(min-width: 768px) {
+          display:  none;
+        }
+      `
+    } 
+  }
+`;
+
+const Links = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  // height: 150px;
+
+  @media(min-width: 768px) {
+    display: block;
+    
+  }
+`;
+
 const Name = styled.div`
   font-family: "Sulphur Point";
-  font-size: 24px;
+  font-size: 32px;
   font-weight: 300;
-`
+  text-align: center;
+
+  @media(min-width: 768px) {
+    font-size: 48px;
+  }
+`;
 
 const SubText = styled.div`
-
-`
+  font-size: 16px;
+  text-align: center;
+  margin: 0.5rem 0 1rem;
+`;
 
 const Wrapper = styled.div`
   color: white;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  padding: 3rem;
+  padding: 3rem 1rem;
+  height: 100%;
+  // border: 1px solid red;
+`;
 
-`
-export default ProjectShow
+export default ProjectShow;

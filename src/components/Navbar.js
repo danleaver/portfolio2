@@ -7,7 +7,6 @@ import HamburgerMenu from 'react-hamburger-menu';
 import { projects as projectsData } from '../screens/projects/projectsData'
 import { links } from './links'
 
-
 const Navbar = (props) => {
   const { pathname : curPage }  = useLocation()
   const [ project, setProject ] = useState(null)
@@ -27,10 +26,6 @@ const Navbar = (props) => {
     }
   }, [dropdown, open])
 
-
-    
-
-
   useEffect(() => {
     setProject(null)
     projectsData.forEach(p => {
@@ -39,8 +34,6 @@ const Navbar = (props) => {
       } 
     })
   }, [curPage])
-
-
 
   const navLeft = () => (
     <div
@@ -177,13 +170,18 @@ const Navbar = (props) => {
           position: fixed; 
           width: 100%;
           z-index: 9999;
+          top: 0;
+
+          a:link {
+            text-decoration: none;
+           }
         `}
       >
         <div
           css={css`
             height: calc(var(--nav-height) - 3px);
             background: rgba(0, 0, 0, 0.5);
-            color: white;
+            color: white;          
           `}
         >
           <div
@@ -202,7 +200,6 @@ const Navbar = (props) => {
         <div css={css`
           display: flex;
           justify-content: space-between;
-          // align-items: center;
         `}>
           <div
             css={css`
@@ -214,22 +211,17 @@ const Navbar = (props) => {
           <div css={css`
             display: none;
             background: rgba(30, 30, 30, 0.5);
-            // border-radius: 50% 60% / 40% 50%;
             border: 1px solid white;
             border-radius: 20px;
             padding: 0.5rem;
             flex-shrink: 0;
             position: relative;
-            top: calc(-1.5rem + 5px);
+            top: calc(-1.5rem + 6px);
             color: white;
 
             @media (min-width: 768px) {
               display: block;
-              // justify-content: flex-end;
-              // border: 1px solid red;
             }
-
-
           `}>
             {renderContact()}
           </div>
@@ -241,36 +233,8 @@ const Navbar = (props) => {
             `}
           />
         </div>
-        <div 
-          css={css`
-            display: none;
-            position: relative;
-            top: -1rem;
-            right: 1rem;
-            color: white;
-            text-align: right;
-            width: 100%;
-            z-index: 9999;
- 
-            @media (min-width: 768px) {
-              display: flex;
-              justify-content: flex-end;
-              // border: 1px solid red;
-            }
-          `}
-        >
-          {/* <div css={css`
-            background: rgba(60, 60, 60, 0.9);
-            // border-radius: 50% 60% / 40% 50%;
-            border: 3px solid white;
-            padding: 0.5rem;
-
-          `}>
-            {renderContact()}
-          </div> */}
-        </div>
       </div>
-      <div css={css`height: var(--nav-height); width: 100%;`} />
+      {/* <div css={css`height: var(--nav-height); width: 100%;`} /> */}
       {props.children}
     </>
   )
@@ -280,6 +244,7 @@ const AngleBrackets = styled.div`
   font-family: "Montez";
   font-size: 96px;
   color: ${props => props.curPage === "/" && "#4AF626"};
+  line-height: 0rem;
 `;
 
 const Bgr = styled.div`
@@ -294,12 +259,15 @@ const CurrentPage = styled.span`
   font-family: "Sulphur Point";
   font-size: 22px;
 
+  @media (max-width: 767px) {
+    font-size: 36px;
+  }
+
   ${props => props.forContact && `
-    @media (max-width: 351px) {
-      font-size: 18px;
+    @media (max-width: 400px) {
+      font-size: 20px;
     }
   `}
-
 `;
 
 const Dropdown = styled.div`
@@ -315,9 +283,7 @@ const Dropdown = styled.div`
   margin: 0 calc(-100vw + 8rem);
   display: flex;
 
-
   ${props => props.open &&
-    // "width: calc(100vw - 8rem); transition: 0.5s ease-in;"
     "margin: 0; transition: 0.5s ease-in;"
   }
 `;
@@ -326,7 +292,7 @@ const DropdownLinks = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  height: 35vh;
+  height: 55vh;
   padding: 1rem;
 `;
 
@@ -342,8 +308,6 @@ const PName = styled.span`
   @media (min-width: 1024px){
     display: inline-block;
   }
-
 `;
 
 export default Navbar
-

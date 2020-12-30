@@ -24,7 +24,9 @@ const LandingHero = (props) => {
           </div>
         </HeroSubTextMobile>
       </Hero>
-      <DownArrows onClick={() => about.current.scrollIntoView()}>
+      <DownArrows 
+        onClick={() => about.current.scrollIntoView()}
+      >
         &gt;&gt; 
       </DownArrows>
       <div ref={about} css={css`position: absolute; bottom: var(--nav-height); height: 3rem;`} />
