@@ -111,10 +111,16 @@ const Navbar = (props) => {
         : 
           <div>
             <a href={item.url} target="_blank" rel="noopener noreferrer" >
-              {item.name}
+              <CurrentPage>
+                {item.name}
+              </CurrentPage>
             </a>
           </div>
     ))
+  )
+
+  const renderContact = () => (
+    <CurrentPage forContact={true}>contact: <a href="mailto:dleaver@gmail.com"> dleaver@gmail.com</a></CurrentPage>
   )
 
   const navRight = () => (
@@ -129,6 +135,7 @@ const Navbar = (props) => {
             flex: 2;
             display: flex;
             justify-content: space-between;
+            align-items: center;
           }
 
           @media(min-width: 1024px) {
@@ -155,6 +162,8 @@ const Navbar = (props) => {
         <Dropdown  open={open}>
           <DropdownLinks>
             {renderLinks("mobile")}
+            <div css={css`padding: 1rem;`}></div>
+            {renderContact()}
           </DropdownLinks>
         </Dropdown>
       </Bgr>
@@ -196,17 +205,25 @@ const Navbar = (props) => {
             background: white;
           `}
         />
-        {/* <div 
+        <div 
           css={css`
+            display: none;
             position: relative;
-            top: 200px;
-            left: 0;
+            top: -0.5rem;
+            left: 2rem;
             color: white;
-            text-align: right;
+            // text-align: right;
+            width: 300px;
+            background: grey;
+            border-radius: 50%;
+
+            @media (min-width: 768px) {
+              display: block;
+            }
           `}
         >
-          CONTACT ME dleaver@gmail.com&nbsp;
-        </div> */}
+          {renderContact()}
+        </div>
       </div>
       <div css={css`height: var(--nav-height); width: 100%;`} />
       {props.children}
@@ -228,7 +245,16 @@ const Bgr = styled.div`
 `;
 
 const CurrentPage = styled.span`
-  color: ${props => props.curPage === props.url && "#4AF626"};
+  color: ${props => props.curPage && props.curPage === props.url && "#4AF626"};
+  font-family: "Sulphur Point";
+  font-size: 22px;
+
+  ${props => props.forContact && `
+    @media (max-width: 351px) {
+      font-size: 18px;
+    }
+  `}
+
 `;
 
 const Dropdown = styled.div`
@@ -254,13 +280,15 @@ const Dropdown = styled.div`
 const DropdownLinks = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  height: 50vh;
+  justify-content: space-around;
+  height: 35vh;
   padding: 1rem;
 `;
 
 const PName = styled.span`
   color: #4AF626;
+  font-family: "Sulphur Point";
+  font-size: 22px;
 
   @media (min-width: 768px) {
     display: none;

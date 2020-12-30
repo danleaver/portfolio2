@@ -27,30 +27,27 @@ const Projects = (props) => {
     </Wrapper>
     
   )
-}
+};
 
 const Header = styled.h1`
   padding: 1rem;
-`
+`;
 
 const Project = styled.div`
   text-align: left;
   padding-bottom: 3rem;
   padding: 1rem;
-`
+`;
 
 const ProjectsWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   justify-content: space-evenly;
-`
+`;
 
 const Wrapper = styled.div`
   padding: 3rem 0rem;
   text-align: center;
-  // display: flex;
-  // flex-direction: column;
-  // align-items: center;
-`
+`;
 
-export default Projects
+export default Projects;
