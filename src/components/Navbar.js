@@ -26,6 +26,8 @@ const Navbar = (props) => {
     })
   }, [curPage])
 
+  
+
   const navLeft = () => (
     <div
       css={css`
@@ -206,13 +208,13 @@ const AngleBrackets = styled.div`
   font-family: "Montez";
   font-size: 96px;
   color: ${props => props.curPage === "/" && "#4AF626"};
-`
+`;
 
 const Bgr = styled.div`
   @media(min-width: 768px) {
     display: none;
   }
-`
+`;
 
 const CurrentPage = styled.span`
   color: ${props => props.curPage === props.url && "#4AF626"};
@@ -222,15 +224,19 @@ const Dropdown = styled.div`
   position: absolute;
   right: 0;
   top: var(--nav-height);
-  background: rgba(136, 136, 136, 0.5);
+  background: rgba(80, 80, 80, 0.8);
   height: calc(100vh - var(--nav-height)); 
-  transition: 0.5s ease-in;
-  width: 0px;
+  transition: 0.6s ease-in;
+  width: calc(100vw - 8rem);
   overflow-x: hidden;
   font-size: 24px;
+  margin: 0 calc(-100vw + 8rem);
+  display: flex;
+
 
   ${props => props.open &&
-    "width: calc(100vw - 8rem); transition: 0.5s ease-in;"
+    // "width: calc(100vw - 8rem); transition: 0.5s ease-in;"
+    "margin: 0; transition: 0.5s ease-in;"
   }
 `;
 
@@ -243,15 +249,17 @@ const DropdownLinks = styled.div`
 `;
 
 const PName = styled.span`
-  // display: none;
   color: #4AF626;
 
   @media (min-width: 768px) {
     display: none;
   }
+
   @media (min-width: 1024px){
     display: inline-block;
   }
 
-`
+`;
+
 export default Navbar
+
