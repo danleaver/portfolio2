@@ -50,6 +50,9 @@ const ProjectShow = (props) => {
           @media( min-width: 768px) {
             display: inline-block;
           }
+
+          max-width: 1200px;
+          margin: auto;
         `} >
           <Image url={project.image} />
           <Links>
@@ -75,6 +78,11 @@ const ProjectShow = (props) => {
             <Item>
               <strong>What I learned:</strong> {project.takeHome}
             </Item>
+            {project.extra &&
+            <Item>
+              <strong>{project.extra.title}</strong> <a href={project.extra.url}>{project.extra.text}</a>
+            </Item>
+            }
           </Links>
         </div>
       </Wrapper>      
@@ -105,6 +113,10 @@ const AllProjects = styled.div`
 const Item = styled.div`
   padding: 1rem 0;
   word-break: ${props => props.url && "break-all"};
+
+  @media(min-width: 768px){
+    // margin: 2rem;
+  }
 `;
 
 const Image = styled.div`
@@ -125,6 +137,7 @@ const Image = styled.div`
           height: 34vw;
           // padding-left: 2rem;
           // padding-bottom: 2rem;
+          margin-left: 1rem;
         } 
       `
     : 

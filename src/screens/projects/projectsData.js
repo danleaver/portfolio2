@@ -2,6 +2,8 @@ import graphica from '../../assets/graphica.png';
 import vibTest from '../../assets/vib-test-results.png';
 import dplNova from '../../assets/dpl-nova.png';
 import mac from '../../assets/mac.png';
+import malouf from '../../assets/malouf.png';
+
 
 export const projects = [
   { link: "graphica", 
@@ -37,5 +39,17 @@ export const projects = [
   },
   { link: "mac", name: "Macedonian Arts Council", github: "https://github.com/danleaver/mac-arts", url: "", description: "A modern design overhaul and site update", tools: "Figma, React", takeHome: "I was brought on as a developer, but ended up designing the new project in addition to coding it. I studied other arts council websites, and went over various design ideas with executive director of the organization.", image: mac },
   { link: "off-the-couch", name: "Off-The-Couch", github: "https://github.com/danleaver/off-the-couch", description: "Pet monitoring tool for spying on your pets and talking to them when you're not home", tools: "React, Node/Express, SocketIO" },
-  { link: "malouf-coding-test", name: "Malouf Coding Test", github: "https://github.com/danleaver/malouf-test-react", description: "A design that I coded for an interview test that resulted in a job offer.", tools: "React, VanillaJS, CSS" },
+  { 
+    link: "malouf-coding-test", 
+    name: "Malouf Coding Test", 
+    date: "November 2020",
+    url: "https://sleepy-curan.netlify.app/",
+    github: "https://github.com/danleaver/malouf-test-react", 
+    description: "A design that I coded for an interview test that resulted in a job offer.", 
+    tools: "React, VanillaJS, CSS",
+    image: malouf,
+    takeHome: 
+      "I applied for a job at Malouf and they wanted me to code a design as part of the interview process. I had a week to work on the project before having to turn it in, and this is the result. Working on this helped me practice accomplishing as much as possible given a deadline, and producing a solid MVP being responsive at all viewports. I was initially under the impression that I couldn't use any frameworks, so I started off working on it in Vanilla JS, but eventually switched to React. ",
+    extra: {title: "Design:", text: "This is the design they provided.", url: "https://www.figma.com/file/JmmFLJi6RYYfSwOV5qgDPX/MaloufHome-Test?node-id=0%3A1&viewport=459%2C469%2C0.09308038651943207"},
+  },
 ]
