@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css, jsx } from '@emotion/react';
 import styled from '@emotion/styled';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Link, useLocation} from '@reach/router';
 import HamburgerMenu from 'react-hamburger-menu';
 import { projects as projectsData } from '../screens/projects/projectsData'
@@ -12,10 +12,24 @@ const Navbar = (props) => {
   const { pathname : curPage }  = useLocation()
   const [ project, setProject ] = useState(null)
   const [ open, setOpen ] = useState(false)
+  const dropdown = useRef(null)
 
-  const handleClick = () => {
-    setOpen(!open)
-  }
+  useEffect(() => {
+    const clickOutside = (e) => {
+      if (open && dropdown.current && !dropdown.current.contains(e.target)) {
+        setOpen(false)
+      }
+    }
+
+    document.addEventListener("mousedown", clickOutside)
+    return () => {
+      document.removeEventListener("mousedown", clickOutside)
+    }
+  }, [dropdown, open])
+
+
+    
+
 
   useEffect(() => {
     setProject(null)
@@ -26,7 +40,7 @@ const Navbar = (props) => {
     })
   }, [curPage])
 
-  
+
 
   const navLeft = () => (
     <div
@@ -126,23 +140,19 @@ const Navbar = (props) => {
       >
         {renderLinks()}
       </div>
-      <Bgr
-        css={css`
-
-        `}
-      >
+      <Bgr ref={dropdown}>
         <HamburgerMenu
           isOpen={open}
-          menuClicked={handleClick}
+          menuClicked={() => setOpen(!open)}
           width={18}
           height={15}
           strokeWidth={1}
           rotate={0}
           color='white'
           borderRadius={0}
-          animationDuration={0.5}
+          animationDuration={0.8}
         />
-        <Dropdown open={open}>
+        <Dropdown  open={open}>
           <DropdownLinks>
             {renderLinks("mobile")}
           </DropdownLinks>
@@ -211,6 +221,7 @@ const AngleBrackets = styled.div`
 `;
 
 const Bgr = styled.div`
+  cursor: pointer;
   @media(min-width: 768px) {
     display: none;
   }
