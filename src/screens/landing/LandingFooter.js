@@ -41,6 +41,10 @@ const Wrapper = styled.div`
   a:link {
     text-decoration: underline;
   }
+
+  @media (min-width: 768px) {
+    font-size: 24px;
+  }
 `;
 
 export default LandingFooter

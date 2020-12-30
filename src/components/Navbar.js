@@ -199,30 +199,75 @@ const Navbar = (props) => {
             {navRight()}
           </div>
         </div>
-        <div
-          css={css`
-            height: 3px;
-            background: white;
-          `}
-        />
+        <div css={css`
+          display: flex;
+          justify-content: space-between;
+          // align-items: center;
+        `}>
+          <div
+            css={css`
+              height: 3px;
+              background: white;
+              width: 100%;
+            `}
+          />
+          <div css={css`
+            display: none;
+            background: rgba(30, 30, 30, 0.5);
+            // border-radius: 50% 60% / 40% 50%;
+            border: 1px solid white;
+            border-radius: 20px;
+            padding: 0.5rem;
+            flex-shrink: 0;
+            position: relative;
+            top: calc(-1.5rem + 5px);
+            color: white;
+
+            @media (min-width: 768px) {
+              display: block;
+              // justify-content: flex-end;
+              // border: 1px solid red;
+            }
+
+
+          `}>
+            {renderContact()}
+          </div>
+          <div
+            css={css`
+              height: 3px;
+              background: white;
+              width: 10%;
+            `}
+          />
+        </div>
         <div 
           css={css`
             display: none;
             position: relative;
-            top: -0.5rem;
-            left: 2rem;
+            top: -1rem;
+            right: 1rem;
             color: white;
-            // text-align: right;
-            width: 300px;
-            background: grey;
-            border-radius: 50%;
-
+            text-align: right;
+            width: 100%;
+            z-index: 9999;
+ 
             @media (min-width: 768px) {
-              display: block;
+              display: flex;
+              justify-content: flex-end;
+              // border: 1px solid red;
             }
           `}
         >
-          {renderContact()}
+          {/* <div css={css`
+            background: rgba(60, 60, 60, 0.9);
+            // border-radius: 50% 60% / 40% 50%;
+            border: 3px solid white;
+            padding: 0.5rem;
+
+          `}>
+            {renderContact()}
+          </div> */}
         </div>
       </div>
       <div css={css`height: var(--nav-height); width: 100%;`} />
