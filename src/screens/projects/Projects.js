@@ -21,7 +21,7 @@ const Projects = (props) => {
                 <h2>
                   {p.name}
                 </h2>
-                <img height="150px" alt={p.name} src={p.image}></img>
+                {p.image ? <img height="150px" alt={p.name} src={p.image}></img> : <div css={css`height: 150px; border: 1px dashed white; display: flex; justify-content: center; align-items: center;`}> No Image Available</div> }
               </Link>
             </Project>
           ))}

@@ -30,15 +30,34 @@ export const projects = [
   { 
     link: "dpl-nova", 
     name: "DevPoint Labs", 
+    date: "Nov 2020 - Current",
     github: "", 
     url: "", 
     description: "A new version of a web-development coding bootcamp's site", 
     tools: "react-spring, react-reveal, ESLint", 
-    takeHome: "This is a current project, where I'm get to work with more experienced developers than myself. On this team, I am able to have the freedom to come up with my own solutions while having support if I run into a problem and get stuck.", 
+    takeHome: "I am working with team of developers and a designer. We are working on creating a uniform code base that can be easily updated moving forward. We are using ESLint checking in our repository. to On this team, I am able to have the freedom to come up with my own solutions while having support if I run into a problem and get stuck.", 
     image: dplNova 
   },
-  { link: "mac", name: "Macedonian Arts Council", github: "https://github.com/danleaver/mac-arts", url: "", description: "A modern design overhaul and site update", tools: "Figma, React", takeHome: "I was brought on as a developer, but ended up designing the new project in addition to coding it. I studied other arts council websites, and went over various design ideas with executive director of the organization.", image: mac },
-  { link: "off-the-couch", name: "Off-The-Couch", github: "https://github.com/danleaver/off-the-couch", description: "Pet monitoring tool for spying on your pets and talking to them when you're not home", tools: "React, Node/Express, SocketIO" },
+  { 
+    link: "mac",
+    name: "Macedonian Arts Council", 
+    date: "Nov 2020 - Current",
+    github: "https://github.com/danleaver/mac-arts", 
+    url: "", description: "A modern design overhaul and site update", 
+    tools: "Figma, React", 
+    takeHome: "I was brought on as a developer, but ended up designing the new project in addition to coding it. I studied other arts council websites, and went over various design ideas with executive director of the organization. ", 
+    image: mac 
+  },
+  { 
+    link: "off-the-couch",
+    name: "Off-The-Couch", 
+    date: "Oct 2020 - Current",
+
+    github: "https://github.com/danleaver/off-the-couch", 
+    description: "Pet monitoring tool for spying on your pets and talking to them when you're not home", 
+    takeHome: "I wanted to learn a new backend language, and SocketIO worked a lot easier on Express, so I went that route for this project. I worked on continuously deploying this project, in order to test it properly on multiple devices, and ran into all sorts of browser compatibility which I learned can generally be solved, albiet sometimes tediously. This is a fun project to work on in my spare time.",
+    tools: "React, Node/Express, SocketIO, DigitalOcean"
+  },
   { 
     link: "malouf-coding-test", 
     name: "Malouf Coding Test", 

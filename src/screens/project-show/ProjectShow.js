@@ -27,18 +27,22 @@ const ProjectShow = (props) => {
   }, [props.id]);
 
 
-  const renderAllProjects = (viewport) => (
-    <AllProjects viewport={viewport}>
+  const renderProjectNav = (viewport) => (
+    <ProjectNav viewport={viewport}>
       <Link to="/projects">All Projects</Link>
       <Link to={`/projects/${nextProject.link}`}> Next Project </Link>
-    </AllProjects>
+    </ProjectNav>
+  )
+
+  const renderImage = (float) => (
+    <Image float={float} url={project.image}> {!project.image && "[ Project Currently In Development ]" } </ Image>
   )
 
   if (project == null) return "loading";
 
   return (
     <Clearfix>
-      {renderAllProjects("mobile")}
+      {renderProjectNav("mobile")}
       <Wrapper>
         <Name>
           {project.name}
@@ -47,16 +51,25 @@ const ProjectShow = (props) => {
           {project.description}
         </SubText>
         <div css={css`
-          @media( min-width: 768px) {
+          @media (min-width: 768px) {
             display: inline-block;
           }
 
           max-width: 1200px;
           margin: auto;
+
+          @media (min-width: 1024px) {
+            margin: 0 1rem;
+          }
+
+          @media (min-width: 1200px) {
+            display: flex;
+            // align-items: center;
+          }
         `} >
-          <Image url={project.image} />
+          {renderImage()}
           <Links>
-            <Image float={true} url={project.image} />
+            {renderImage(true)}
             {project.url && 
               <Item url={true}>
                 <GreenSpan>
@@ -86,18 +99,20 @@ const ProjectShow = (props) => {
           </Links>
         </div>
       </Wrapper>      
-      {renderAllProjects()}
+      {renderProjectNav()}
     </Clearfix>
   )
 
 }
 
-const AllProjects = styled.div`
+const ProjectNav = styled.div`
   padding: 1rem;
   display: flex;
   justify-content: space-between;
   font-family: "Sulphur Point";
   font-size: 18px;
+  max-width: 1200px;
+  margin: auto;
 
   ${props => props.viewport === "mobile" && `
     @media(min-width: 768px) {
@@ -124,26 +139,42 @@ const Image = styled.div`
   background-size: contain;
   width: 90vw;
   height: 60vw;
-  // border: 1px solid green;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+
+  ${props => !props.url && "border: 1px dashed white;"}
 
   ${props => props.float 
     ? 
       `
         display: none;
         @media(min-width: 768px) {
-          display: block;
+          display: flex;
           float: right;
           width: 50%;
-          height: 34vw;
-          // padding-left: 2rem;
-          // padding-bottom: 2rem;
+          height: 32vw;
           margin-left: 1rem;
+          margin-bottom: 0rem;
         } 
+
+        @media (min-width: 1200px) {
+          display: none
+        }
       `
     : 
       `
         @media(min-width: 768px) {
           display:  none;
+        }
+
+        @media(min-width: 1200px) {
+          display: flex;
+          order: 2;
+          width: 600px;
+          height: 350px;
+          margin-top: 1rem;
+          margin-left: 1rem;
         }
       `
     } 
@@ -159,6 +190,10 @@ const Links = styled.div`
   @media(min-width: 768px) {
     display: block;
     
+  }
+
+  @media(min-width: 1200px) {
+    width: 50%;
   }
 `;
 
